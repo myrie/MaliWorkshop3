@@ -200,19 +200,17 @@ void RendererOpenGL::drawTurret(Excavator bigExcavator)
 	float turretAngle = bigExcavator.getTurretAngle();
 	glPushMatrix();
 	{
+		glTranslatef(-1.0, 4.0, 6.0f);
+		// rotates the turret
+		glRotatef(turretAngle, 0, 1, 0);
 		glPushMatrix();
 		{
-			glTranslatef(-1.0, 4.0, 6.0f);
-			// rotates the turret
-			glRotatef(turretAngle, 0, 1, 0);
 			// scales the turret up to the right size
 			glScalef(3.5, 2, 2);
-			// draws the turret
 			drawCube();
 		}
 		glPopMatrix();
 
-		//glRotatef(turretAngle, 0, 1, 0);
 		//arm1
 		drawTurretArm(bigExcavator);
 	}
@@ -223,17 +221,23 @@ void RendererOpenGL::drawTurretArm(Excavator bigExcavator)
 {
 	float upperArmAngle = bigExcavator.getUpperArmAngle();
 	//arm1
+
 	glPushMatrix();
-	{
-		glRotatef(-20, 1, 0, 0);
-		glTranslatef(0, -1, 0);
+	{                                              
 		// rotates the arm back and forth
-		glRotatef(upperArmAngle, 0, 0, 1);
-		// places the arm on top of the turret, scales it, draws it
-		glTranslatef(-3.5, 3.8, 6.0f);
+		
+		glRotatef(-upperArmAngle, 0, 0, 1);
 		glScalef(5.3, 0.5, 0.5);
-		drawCube();
+		glTranslatef(.5, 0, 0);
+		glPushMatrix();
+		{
+			glRotatef(45, 1, 0, 0);
+			glTranslatef(0, .5, 0);
+			drawCube();
+		}              
+		glPopMatrix();
 	}
+
 	glPopMatrix();
 }
 
